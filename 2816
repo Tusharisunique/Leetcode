@@ -1,0 +1,29 @@
+#include <stdlib.h>
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+int helperDouble(struct ListNode* node) {
+    if (!node) return 0;
+    int carry = helperDouble(node->next);
+    int val = node->val * 2 + carry;
+    node->val = val % 10;
+    return val / 10;
+}
+
+struct ListNode* doubleIt(struct ListNode* head) {
+    if (!head) return NULL;
+    int carry = helperDouble(head);
+    if (carry) {
+        struct ListNode* newHead = (struct ListNode*)malloc(sizeof(struct ListNode));
+        newHead->val = carry;
+        newHead->next = head;
+        return newHead;
+    }
+    return head;
+}
