@@ -1,0 +1,21 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+bool hasPathSum(struct TreeNode* root, int targetSum) {
+    if (root == NULL)
+        return false;
+
+    // Check if it's a leaf
+    if (root->left == NULL && root->right == NULL)
+        return targetSum == root->val;
+
+    // Recur on left and right with reduced sum
+    return hasPathSum(root->left, targetSum - root->val) ||
+           hasPathSum(root->right, targetSum - root->val);
+}
